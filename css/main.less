@@ -1,0 +1,106 @@
+body{
+
+}
+
+
+#giveBox{
+	width: 80%;
+	margin: 0 auto;
+	
+	button{
+		padding: 10px 20px;
+		background-color: white;
+		border: 1px solid black;
+		transition: .5s;
+		cursor: pointer;
+		&:hover{
+			background-color: darken(white, 10%);
+			border: 1px solid darken(white, 15%);
+			color:blue;
+		}
+		&:active{
+			background-color: darken(white, 30%);
+		}
+		transform: translateY(-5px);
+	}
+}
+
+#getChinese{
+	#open{
+
+	}
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li{
+			border: 1px solid grey;
+			padding: 5px 20px;
+			margin-top: 3px;
+			.fH;
+			a{
+				.fH;
+			}
+			.poemContent, .poemTrans{
+				float: left;
+				.fH;
+			}
+			.poemContent{
+				width: 27%;
+			}
+			.poemTrans{
+				width: 50%;
+				margin-left: 30px;
+			}
+		}
+	}
+}
+
+
+#tone{
+	
+	display: inline-block;
+	.tone, .symbol{
+		width: 20%;
+	}
+	.toneLite{
+		height: 6em;
+		vertical-align: top;
+	}
+	.tone1{
+		vertical-align: top;
+	}
+	.tone4,.tone2{
+		vertical-align: top;
+	}
+	.symboldun, .symbolcom{
+		height: 150px;
+		vertical-align: bottom;
+	}
+	.symboldot{
+		height: 100px;
+		vertical-align: bottom;
+	}
+	.symbolques, .symbolexcla, .symbolmao{
+		height: 10em;
+	}
+}
+
+#container{
+	width: 70%;
+	margin: 0 auto;
+}
+
+//-----------
+
+
+
+.fH{
+	&:after{
+		content:".";
+        display:block;
+        height:0;
+        clear:left;
+        visibility:hidden;
+	}
+}
