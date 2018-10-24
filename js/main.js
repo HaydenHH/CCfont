@@ -30,7 +30,6 @@ $(function(){
 	
 
 	for(var poemIndex = 0, poemL = poemBank.length; poemIndex < poemL; poemIndex++){
-
 		var pShow = $('<a class="poemShow" href="#">'+ poemBank[poemIndex].titles +'</a>'),
 			pCont = $('<p class="poemContent">'+ poemBank[poemIndex].contents +'</p>'),
 			pTran = $('<p class="poemTrans">'+ poemBank[poemIndex].translate +'</p>');
@@ -38,7 +37,9 @@ $(function(){
 		var pLi = $('<li></li>').addClass('poem').append(pShow,pCont,pTran)
 		$('#getChinese ul').append(pLi)
 	}
-	
+
+
+
 
 	$('.poem').hide()
 	$('.poemContent').hide()
@@ -73,6 +74,10 @@ $(function(){
 	}
 
 
+	var yellow = '#EDC329'
+	//$('.ton1 svg').fill
+
+
 
 	function searchEveryWord(){
 		var giveWord =  $('textarea').val();
@@ -102,8 +107,6 @@ $(function(){
 			       }
 			       console.log(pinyinStr)
 
-			       
-
 			       for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
 			       		for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
 			       			for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
@@ -117,6 +120,9 @@ $(function(){
 			       			}
 			       		}
 			       }
+
+			       
+
 			    }
 			}
 		} 

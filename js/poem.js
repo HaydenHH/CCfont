@@ -60,6 +60,65 @@ var poemBank = [
 					Suffering troubles, I bitterly regret my whitening temples,\
 					Frustratingly I've had to abandon my cup of cloudy wine.\
 		",
+	},
+	{
+		"titles":"Saying Good-bye to Cambridge Again",
+		"contents":"轻轻的我走了，\
+				    　正如我轻轻的来；\
+				    我轻轻的招手，\
+				    　作别西天的云彩。\
+				    那河畔的金柳\
+				    　是夕阳中的新娘\
+				    波光里的艳影，\
+				    　在我的心头荡漾。\
+				    软泥上的青荇，\
+				    　油油的在水底招摇；\
+				    在康河的柔波里，\
+				    　我甘心做一条水草\
+				    那树荫下的一潭，\
+				    　不是清泉，是天上虹\
+				    揉碎在浮藻间，\
+				    　沉淀着彩虹似的梦。\
+				    寻梦？撑一支长篙，\
+				    　向青草更青处漫溯，\
+				    满载一船星辉，\
+				    　在星辉斑斓里放歌\
+				    但我不能放歌，\
+				    　悄悄是别离的笙箫；\
+				    夏虫也为我沉默，\
+				    　沉默是今晚的康桥！\
+				    悄悄的我走了，\
+				    　正如我悄悄的来；\
+				    我挥一挥衣袖，\
+				    　不带走一片云彩。",
+		"translate":"Very quietly I take my leave,\
+						As quietly as I came here;\
+						Quietly I wave good-bye,\
+						To the rosy clouds in the western sky.\
+						The golden willows by the riverside,\
+						Are young brides in the setting sun;\
+						Their reflections on the shimmering waves,\
+						Always linger in the depth of my heart.\
+						The floating heart growing in the sludge,\
+						Sways leisurely under the water;\
+						In the gentle waves of Cambridge,\
+						I would be a water plant!\
+						That pool under the shade of elm trees,\
+						Holds not water but the rainbow from the sky;\
+						Shattered to pieces among the duckweeds,\
+						Is the sediment of a rainbow-like dream?\
+						To seek a dream? Just to pole a boat upstream,\
+						To where the green grass is more verdant;\
+						Or to have the boat fully loaded with starlight,\
+						And sing aloud in the splendor of starlight.\
+						But I cannot sing aloud,\
+						Quietness is my farewell music;\
+						Even summer insects heap silence for me,\
+						Silent is Cambridge tonight!\
+						Very quietly I take my leave,\
+						As quietly as I came here;\
+						Gently I flick my sleeves,\
+						Not even a wisp of cloud will I bring away."
 	}
 
 
