@@ -1,13 +1,14 @@
-$(function(){
-	var dicBank = document.createElement('script');
-	dicBank.setAttribute('type','text/javascript');
-	dicBank.setAttribute('src','js/word.js');
-	var head = document.getElementsByTagName('head')[0];
-	head.appendChild(dicBank);
-	
+var allType = new Array(),
+		allStroke = new Array(),
+		allTone = new Array(),
+		allRadicals = new Array(),
+		pointWord = new Array,
+		allPoints = new Array()
+
 
 	
-	var toneBank = 
+
+var toneBank = 
 		[
 			{
 				"tone":['ā','ē','ō','ī','ū']	
@@ -26,6 +27,170 @@ $(function(){
 			}
 
 		]
+
+function givePoint(count,strokes){
+			//console.log(count,strokes)
+			coor = new Array
+			for(var i = 0, l = strokes; i < l;i++){
+
+				var x = count * 1,
+					y = i * 1  ;
+				
+				coor.push([x,y])
+				
+			}//一个字符的点
+			pointWord.push([coor])
+		}
+
+
+function searchEveryWord(){
+	var giveWord =  $('textarea').val();
+	
+	for(var i=0, l = giveWord.length; i < l; i++){
+	       		allType.push(giveWord.charAt(i))
+	       }
+	  
+
+	for(var count = 0, allword = allType.length; count < allword; count++){
+		//console.log(allType[count] + '1')
+		for (var bankIndex = 0, bank = wordBank.length; bankIndex < bank; bankIndex++){
+		    if (wordBank[bankIndex].word == allType[count]) {
+
+		       
+		       var pinyinStr = new Array()
+		       var pinyin = wordBank[bankIndex].pinyin;
+		       var symbolIndex = wordBank[bankIndex].strokes;
+
+		         allStroke.push(wordBank[bankIndex].strokes);
+		         allRadicals.push(wordBank[bankIndex].radicals)
+
+		       //console.log(symbolIndex + '2')
+		       //console.log(pinyin)
+		       if(wordBank[bankIndex].radicals == 'symbol'){
+		       		//renderSymbol('symbol', symbolIndex)
+		       }
+		       for(var i = 0, l = pinyin.length; i < l; i++){
+		       		pinyinStr.push(pinyin.charAt(i))
+		       		
+		       }
+		       
+
+		       for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
+		       		for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
+		       			for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
+		       				if(toneG < 4 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
+		       					// $('body').append($('<p>' + allType[count] + ':第' + [toneG + 1] + '声</p>'))
+		       					//renderTone('tone',[toneG + 1])
+		       					allTone.push([toneG + 1])
+		       				}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
+		       					//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
+		       					//renderTone('toneLite',1)
+		       					allTone.push(['liteT'])
+		       				}
+		       			}
+		       		}
+		       		
+		       }//分析音调
+
+		    }
+		}//每一个字
+	}//检索数据库
+
+	var s = Snap("#svg1");
+		s.attr({
+			width: '100%',
+			height: '1000px'
+		})
+
+
+
+
+	for(var i = 0, l = allType.length; i<l;i++){
+		console.log("笔画和音调:" + allStroke[i]+ "and" + allTone[i] + "/部首" + allRadicals[i])
+		var thisStrokes = allStroke[i];
+		var thisCount = [i + 1] 
+
+		givePoint(thisCount,thisStrokes)//标点给赋予了值
+
+		
+			
+				
+				if(thisStrokes == 'com'){
+			 		symbol = s.rect(thisCount*30,50,10,10)
+				}else{	
+					var thisWord = pointWord[i]
+					console.log(thisWord)
+					for(var ii = 0, ll = thisWord.length;ii<ll;ii++){
+						var dot = thisWord[ii];
+						for(var dotI = 0, dotL = dot.length; dotI < dotL;dotI++){
+						var thisDot = dot[dotI],
+								r = 5 ,
+								x = thisDot[0] * 30,
+								y = thisDot[1] * 40 + 2*r
+
+						console.log("X:" + thisDot[0] + ";Y:" + thisDot[1])
+						dots = s.paper.circle(x,y,r)
+							dots.attr({
+								fill:'#333',
+								class:'cir'
+							})
+						}//绘制
+					}
+				}		
+
+		
+		//这个字生成了点的坐标，根据笔画的数量 
+		console.log("输入的总数" + pointWord.length)
+	}
+
+	
+	
+
+	
+
+
+	// for(var wordPI=0,wordPL=pointWord.length;wordPI<wordPL;wordPI++){
+	// 	//console.log(pointWord)
+	// 	var thisWordAllPoints = pointWord[wordPI]
+	// 	console.log("每个字的点数列"+ [thisWordAllPoints])
+	// 	for(var ii = 0, l = thisWordAllPoints.length;ii<l;ii++){
+	// 		var dotCoor = thisWordAllPoints[ii]
+	// 		console.log(dotCoor)
+				
+	// 			for(var dotI = 0, dotL = dotCoor.length; dotI < dotL;dotI++){
+	// 				var thisDot = dotCoor[dotI],
+	// 					r = 5 ,
+	// 					x = thisDot[0] * 30,
+	// 					y = thisDot[1] * 40 + 2*r
+
+	// 				console.log("每个点的坐标的X" + thisDot[0] + "每个点的坐标的Y" + thisDot[1])
+	// 				dots = s.paper.circle(x,y,r)
+	// 				dots.attr({
+	// 					fill:'#333'
+	// 				})
+	// 			}//绘制
+			
+
+	// 	}
+	// }
+
+	
+}//点击后的执行
+
+
+window.onload = function(){
+
+	
+
+	var dicBank = document.createElement('script');
+	dicBank.setAttribute('type','text/javascript');
+	dicBank.setAttribute('src','js/word.js');
+	var head = document.getElementsByTagName('head')[0];
+	head.appendChild(dicBank);
+	
+
+	
+	
 	
 	
 
@@ -57,77 +222,31 @@ $(function(){
 
 
 
+
 	$('button').click(function(){
 		//$('body p').remove('p')
-		$('body embed').remove()
-		searchEveryWord()	
+		$('svg').find('.cir').remove()
+		
+		searchEveryWord()
+			
 	})
 
-	function renderTone(type,i){
+	// function renderTone(type,i){
 
-		$('#tone').append($('<embed src="img/' + type + i + '.svg"></embed>').addClass(type).addClass(type + i))
-	}
+	// 	$('#tone').append($('<embed src="img/' + type + i + '.svg"></embed>').addClass(type).addClass(type + i))
+	// }
 
-	function renderSymbol(type,i){
+	// function renderSymbol(type,i){
 
-		$('#tone').append($('<embed src="img/' + type + '-' + i + '.svg"></embed>').addClass(type).addClass(type + i))
-	}
-
-
-	var yellow = '#EDC329'
-	//$('.ton1 svg').fill
+	// 	$('#tone').append($('<embed src="img/' + type + '-' + i + '.svg"></embed>').addClass(type).addClass(type + i))
+	// }
 
 
 
-	function searchEveryWord(){
-		var giveWord =  $('textarea').val();
-		var allType = new Array()
-		for(var i=0, l = giveWord.length; i < l; i++){
-		       		allType.push(giveWord.charAt(i))
-		       }
-		  
-
-		for(var count = 0, allword = allType.length; count < allword; count++){
-			console.log(allType[count] + '1')
-			for (var bankIndex = 0, bank = wordBank.length; bankIndex < bank; bankIndex++){
-			    if (wordBank[bankIndex].word == allType[count]) {
-
-			       
-			       var pinyinStr = new Array()
-			       var pinyin = wordBank[bankIndex].pinyin;
-			       var symbolIndex = wordBank[bankIndex].strokes;
-			       console.log(symbolIndex + '2')
-			       //console.log(pinyin)
-			       if(wordBank[bankIndex].radicals == 'symbol'){
-			       		renderSymbol('symbol', symbolIndex)
-			       }
-			       for(var i = 0, l = pinyin.length; i < l; i++){
-			       		pinyinStr.push(pinyin.charAt(i))
-			       		
-			       }
-			       console.log(pinyinStr)
-
-			       for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
-			       		for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
-			       			for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
-			       				if(toneG < 4 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
-			       					// $('body').append($('<p>' + allType[count] + ':第' + [toneG + 1] + '声</p>'))
-			       					renderTone('tone',[toneG + 1])
-			       				}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
-			       					//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
-			       					renderTone('toneLite',1)
-			       				}
-			       			}
-			       		}
-			       }
-
-			       
-
-			    }
-			}
-		} 
-	}
+	
 
 
 
-})
+
+
+}
