@@ -5,11 +5,14 @@ var allType = new Array(),
 		pointWord = new Array,
 		allPoints = new Array()
 
-
+var myObj = new Array()
 	
 
 var toneBank = 
 		[
+			{
+				"tone":['e','a']
+			},
 			{
 				"tone":['ā','ē','ō','ī','ū']	
 			},
@@ -21,16 +24,15 @@ var toneBank =
 			},
 			{
 				"tone":['à','è','ò','ì','ù']
-			},
-			{
-				"tone":['e','a']
 			}
+			
 
 		]
 
 function givePoint(count,strokes){
 			//console.log(count,strokes)
 			coor = new Array
+			coor.length = 0
 			for(var i = 0, l = strokes; i < l;i++){
 
 				var x = count * 1,
@@ -44,7 +46,19 @@ function givePoint(count,strokes){
 
 
 function searchEveryWord(){
-	var giveWord =  $('textarea').val();
+	allType.length = 0
+	pointWord.length = 0
+	allPoints.length = 0
+	allRadicals.length = 0
+	allStroke.length = 0
+	myObj.length = 0
+	var s = Snap("#svg1");
+		s.attr({
+			width: '100%',
+			height: '1000px'
+		})
+
+	var giveWord =  $('textarea').val().replace(/\s+/g,"，");
 	
 	for(var i=0, l = giveWord.length; i < l; i++){
 	       		allType.push(giveWord.charAt(i))
@@ -58,6 +72,7 @@ function searchEveryWord(){
 
 		       
 		       var pinyinStr = new Array()
+		       pinyinStr.length = 0
 		       var pinyin = wordBank[bankIndex].pinyin;
 		       var symbolIndex = wordBank[bankIndex].strokes;
 
@@ -74,107 +89,82 @@ function searchEveryWord(){
 		       		
 		       }
 		       
-
-		       for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
-		       		for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
-		       			for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
-		       				if(toneG < 4 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
-		       					// $('body').append($('<p>' + allType[count] + ':第' + [toneG + 1] + '声</p>'))
-		       					//renderTone('tone',[toneG + 1])
-		       					allTone.push([toneG + 1])
-		       				}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
-		       					//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
-		       					//renderTone('toneLite',1)
-		       					allTone.push(['liteT'])
+		       if(isNaN(pinyinStr)){
+		       		for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
+		       				for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
+		       					for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
+		       						if(toneG > 0 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
+		       							// $('body').append($('<p>' + allType[count] + ':第' + [toneG + 1] + '声</p>'))
+		       							//renderTone('tone',[toneG + 1])
+		       							allTone.push([toneG])
+		       						}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
+		       							//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
+		       							//renderTone('toneLite',1)
+		       							allTone.push([toneG])
+		       						}
+		       					}
 		       				}
-		       			}
-		       		}
-		       		
-		       }//分析音调
+		       				
+		       		}//分析音调
+		       }else{
+		       		allTone.push('symbol')
+		       }
+		       
 
-		    }
-		}//每一个字
-	}//检索数据库
+		 	
 
-	var s = Snap("#svg1");
-		s.attr({
-			width: '100%',
-			height: '1000px'
-		})
+				console.log("字：" + allType[count] +"/笔画和音调:" + allStroke[count]+ "and" + allTone[count] + "/部首" + allRadicals[count])
+				var thisStrokes = allStroke[count];
+				var thisTone = allTone[count];
+				var thisCount = [count + 1] 
+				console.log("声调："+ thisTone)
+				givePoint(thisCount,thisStrokes)//标点给赋予了值
 
-
-
-
-	for(var i = 0, l = allType.length; i<l;i++){
-		console.log("笔画和音调:" + allStroke[i]+ "and" + allTone[i] + "/部首" + allRadicals[i])
-		var thisStrokes = allStroke[i];
-		var thisCount = [i + 1] 
-
-		givePoint(thisCount,thisStrokes)//标点给赋予了值
-
-		
-			
 				
-				if(thisStrokes == 'com'){
-			 		symbol = s.rect(thisCount*30,50,10,10)
-				}else{	
-					var thisWord = pointWord[i]
-					console.log(thisWord)
-					for(var ii = 0, ll = thisWord.length;ii<ll;ii++){
-						var dot = thisWord[ii];
-						for(var dotI = 0, dotL = dot.length; dotI < dotL;dotI++){
-						var thisDot = dot[dotI],
-								r = 5 ,
-								x = thisDot[0] * 30,
-								y = thisDot[1] * 40 + 2*r
+				var userType = new Object()
+				userType.getTone = thisTone;
+				userType.getStro = thisStrokes;
+				
+				console.log("JSON:" + userType.getTone +  userType.getStro)
+				
+				myObj.push(userType)
 
-						console.log("X:" + thisDot[0] + ";Y:" + thisDot[1])
-						dots = s.paper.circle(x,y,r)
-							dots.attr({
-								fill:'#333',
-								class:'cir'
-							})
-						}//绘制
-					}
+
+				if(thisStrokes == 'com'){
+				 	ymbol = s.rect(thisCount*30,50,10,10)
+				}else{	
+				 	var thisWord = pointWord[count] 
+				 	//console.log(thisWord) 这个字的点列阵
+				 	for(var ii = 0, ll = thisWord.length;ii<ll;ii++){
+				 		var dot = thisWord[ii];
+				 		for(var dotI = 0, dotL = dot.length; dotI < dotL;dotI++){
+				 		var thisDot = dot[dotI],
+				 				r = 5 ,
+				 				x = thisDot[0] * 30,
+				 				y = thisDot[1] * 40 + 2*r
+
+				 				//console.log("X:" + thisDot[0] + ";Y:" + thisDot[1])
+				 		dots = s.paper.circle(x,y,r)
+				 			dots.attr({
+				 				fill:'#333',
+				 				class:'cir'
+				 			})
+				 		}//绘制每个点
+				 	}//绘制每个字
+				 			
 				}		
 
+				 
+				 //这个字生成了点的坐标，根据笔画的数量 
+				 console.log("输入的总数" + pointWord.length)   
+
+			}
+		}//每一个字
+
 		
-		//这个字生成了点的坐标，根据笔画的数量 
-		console.log("输入的总数" + pointWord.length)
-	}
+	}//检索数据库
 
-	
-	
-
-	
-
-
-	// for(var wordPI=0,wordPL=pointWord.length;wordPI<wordPL;wordPI++){
-	// 	//console.log(pointWord)
-	// 	var thisWordAllPoints = pointWord[wordPI]
-	// 	console.log("每个字的点数列"+ [thisWordAllPoints])
-	// 	for(var ii = 0, l = thisWordAllPoints.length;ii<l;ii++){
-	// 		var dotCoor = thisWordAllPoints[ii]
-	// 		console.log(dotCoor)
-				
-	// 			for(var dotI = 0, dotL = dotCoor.length; dotI < dotL;dotI++){
-	// 				var thisDot = dotCoor[dotI],
-	// 					r = 5 ,
-	// 					x = thisDot[0] * 30,
-	// 					y = thisDot[1] * 40 + 2*r
-
-	// 				console.log("每个点的坐标的X" + thisDot[0] + "每个点的坐标的Y" + thisDot[1])
-	// 				dots = s.paper.circle(x,y,r)
-	// 				dots.attr({
-	// 					fill:'#333'
-	// 				})
-	// 			}//绘制
-			
-
-	// 	}
-	// }
-
-	
+console.log("JSON：" + myObj.length)
 }//点击后的执行
 
 
@@ -230,6 +220,8 @@ window.onload = function(){
 		searchEveryWord()
 			
 	})
+
+	
 
 	// function renderTone(type,i){
 
