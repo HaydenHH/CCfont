@@ -5,9 +5,9 @@ window.onload = function(){
 		// 		strokeWeight(0);
 		// 		colorMode(HSB);
 		// 		x = dots[i].strokes * 20
-		// 		y = dots[i].strokes * 20 
+		// 		y = dots[i].strokes * 20
 		// 		fill(360/200*i, 100/200*mouseY*10, mouseX*i/200);
-				
+
 		// 		rowC = 100
 		// 		row = Math.floor(i/rowC)
 		// 		space = 10
@@ -15,7 +15,7 @@ window.onload = function(){
 		// 	}
 		// }
 
-		
+
 
 }
 
@@ -27,15 +27,15 @@ window.onload = function(){
 		allPoints = new Array()
 		var myObj = new Array()
 		var lines,pointS,pointE,dots,xS,yS,xE,yE
-		var pinyinStr 
+		var pinyinStr
 		var giveWord
 		var dots;
 		var obj,tonebase;
-		var inp,btn,btn2,btn3
+		var inp,btn,btn2,btn3,btn4
 		var row,space,rowC
-		var ch,cw
+		var ch,cw,countofword
 
-		
+
 
 		function preload(){
 
@@ -45,21 +45,31 @@ window.onload = function(){
 
 		}
 
-		
+
+		var slider;
+
+
 		function setup(){
+			slider = createSlider(1000, 3000, 10);
+		  slider.position(700, 40).addClass('Noprint')
+		  slider.style('width', '100px');
 			ch = 1000
+
 			cw = 1000
 		  createCanvas(windowWidth*0.8,ch );
-		  btn = createButton('Pause');
-		  btn3 = createButton('Type&Draw');
+		  btn = createButton('P');
+			 btn2 = createButton('A');
+		  btn3 = createButton('R');
+			btn4 = createButton('S');
 		  btn.mousePressed(noLoop)
 		  btn3.mousePressed(looop)
-		  btn2 = createButton('Render');
+		 btn4.mousePressed(reCanvas)
 		  btn2.mousePressed(begin)
 		  //btn2.mousePressed(begin)
-		  btn.position(10,10).addClass('Noprint')
-		  btn3.position(10,30).addClass('Noprint')
-		  btn2.position(10,50).addClass('Noprint')
+		  btn.position(10,20).addClass('Noprint btn-pause')
+		  btn3.position(40,20).addClass('Noprint btn-render')
+		  btn2.position(70,20).addClass('Noprint btn-auto')
+			btn4.position(650,30).addClass('Noprint')
 		  inp = createInput('');
 		  inp.addClass('inp');
 		  inp.position(100,10).addClass('Noprint')
@@ -78,16 +88,22 @@ window.onload = function(){
 			loop()
 		}
 
+		function reCanvas(){
+			var v = slider.value()
+			 resizeCanvas(windowWidth*0.8, v)
+		}
+
 
 		function draw(){
 			colorMode(HSB)
 		  	background(10)
+				//resizeCanvas(windowWidth*0.8,ch)
 		  	begin()
 		}
 
-		
+
 		function begin(){
-			
+
 				allType.splice(0)
 				allStroke.splice(0)
 				allTone.splice(0)
@@ -98,14 +114,27 @@ window.onload = function(){
 
 			var giveWord =  inp.value().replace(/\s+/g,"，");
 
+
+
+			// function reCanvas(y){
+			// 	resizeCanvas(windowWidth*0.8,y)
+			// }
+			//
+			// reCanvas(giveWord.length)
+
 			for(var i=0, l = giveWord.length; i < l; i++){
 	       		allType.push(giveWord.charAt(i))
+
 	    	}
+
+
+
+
 
 	    	for(var count = 0, allword = allType.length; count < allword; count++){
 	       		for (var bankIndex = 0, bank = wordBank.length; bankIndex < bank; bankIndex++){
 	       			if (wordBank[bankIndex].word == allType[count]) {
-	       			   
+
 	       				var pinyinStr = new Array()
 	       			   pinyinStr.length = 0
 	       			   var pinyin = wordBank[bankIndex].pinyin;
@@ -121,9 +150,9 @@ window.onload = function(){
 	       			   }
 	       			   for(var i = 0, l = pinyin.length; i < l; i++){
 	       			   		pinyinStr.push(pinyin.charAt(i))
-	       			   		
+
 	       			   }
-	       			
+
 
 	       				if(isNaN(pinyinStr) == true){
 	       					for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
@@ -137,7 +166,7 @@ window.onload = function(){
 	       					       							//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
 	       					       							//renderTone('toneLite',1)
 	       					       			allTone.push([toneG])
-	       					       		}	
+	       					       		}
 	       					       	}
 	       					    }
 	       					}
@@ -145,128 +174,129 @@ window.onload = function(){
 	       					allTone.push('symbol')
 	       				}
 
-	       			
+
 
 
 	       			var thisStrokes = allStroke[count];
 					var thisTone = allTone[count];
-					var thisCount = [count + 1] 
-					
+					var thisCount = [count + 1]
+
 					//console.log(thisTone)
 					givePoint(thisCount,thisStrokes,thisTone)//标点给赋予了值
 
 					function givePoint(count,strokes,tone){
-								
+
 						coor = new Array
 						coor.length = 0
 
-						
-						space = 150 //每个字的间距
-						dotSpace = 50 //每个点的间距
-						wordHeight = 10 //字的高度系数
-						lineHeight = 130 //行距
-						
+
+						space = 170 //每个字的间距
+						dotSpace = 30 //每个点的间距
+						wordHeight = 5 //字的高度系数
+						lineHeight = 100 //行距
+
 						rowWord = 8  //每行的字数
 						row = Math.floor(allStroke.length/rowWord)
+						centreX = count*space-row*rowWord*space + 50
 						centreY = row*lineHeight + 400
 
 						if(tone == 0){
-							centreX = count*space-row*rowWord*space 
+							centreX = centreX
 							centreY = centreY
 						}else if(tone == 1){
-							centreX = count*space-row*rowWord*space 
+							centreX = centreX
 							centreY = centreY
 						}else if(tone == 2){
-							centreX = count*space-row*rowWord*space 
+							centreX = centreX
 							centreY = centreY + 200
 						}else if(tone == 3){
-							centreX = count*space-row*rowWord*space 
+							centreX = centreX
 							centreY = centreY - 100
 						}else if(tone == 4){
-							centreX = count*space-row*rowWord*space 
+							centreX = centreX
 							centreY = centreY - 200
 						}else if(tone == 'symbol'){
 							centreX = count*space-row*rowWord*space-space
-							centreY = centreY 
+							centreY = centreY
 						}
-						
+
 
 						for(var centreX,centreY,t = tone, i = 0, l = strokes; i < l;i++){
 							if(t == 0){
 								rowPoint = 1 //每行点的个数
 								layoutRow =  Math.floor(i/rowPoint) + 1
-								
-								
+
+
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
-									y = centreY + layoutRow*dotSpace  
-									
+									y = centreY + layoutRow*dotSpace
+
 								coor.push({"x":x,"y":y,"t":t})
 							}else if(t == 1){
 								rowPoint = 4 //每行点的个数
 								layoutRow =  Math.floor(i/rowPoint)
-								
+
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace*1.5,
-									y = centreY + layoutRow*dotSpace  
-									
+									y = centreY + layoutRow*dotSpace
+
 								coor.push({"x":x,"y":y,"t":t})
 							}else if(t == 2){
 								rowPoint = 2 //每行点的个数
 								layoutRow =  Math.floor(i/rowPoint)
-								
+
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
-									y = centreY - layoutRow*dotSpace  
-									
+									y = centreY - layoutRow*dotSpace
+
 								coor.push({"x":x,"y":y,"t":t})
-								
+
 							}else if(t == 3){
 								rowPoint = 3 //每行点的个数
 								layoutRow =  Math.floor(i/rowPoint)
-								
+
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
-									y = centreY 
-									
+									y = centreY
+
 								coor.push({"x":x,"y":y,"t":t})
-								
+
 							}else if(t == 4){
 								rowPoint = 2 //每行点的个数
 								layoutRow =  Math.floor(i/rowPoint)
-								
-								var x = centreX - [i-layoutRow*rowPoint]*dotSpace,
-									y = centreY + layoutRow*dotSpace  
-									
+
+								var x = floor(centreX - [i-layoutRow*rowPoint]*dotSpace),
+									y = centreY + layoutRow*dotSpace
+
 								coor.push({"x":x,"y":y,"t":t})
-								
+
 							}else if(t == 'symbol'){
 								rowPoint = 1 //每行点的个数
 								layoutRow =  Math.floor(i/rowPoint)
-								
-								var x = centreX - [i-layoutRow*rowPoint]*dotSpace,
-									y = centreY + layoutRow*dotSpace  
-									
+
+								var x = floor(centreX - [i-layoutRow*rowPoint]*dotSpace),
+									y = centreY + layoutRow*dotSpace
+
 								coor.push({"x":x,"y":y,"t":t})
-								
+
 							}
-							
-									
+
+
 						}//一个字符的点
 						pointWord.push([coor])
 					}//绘点函数
-				
+
 					var userType = new Object()
 					userType.getTone = thisTone;
 					userType.getStro = thisStrokes;
-				
+
 					//console.log("JSON:" + userType.getTone + "Strokes:" +  userType.getStro)
-				
+
 					myObj.push(userType)
 
 
-					}		
+					}
 
 	       	}//每个输入的字
-	       	
+
 	   	}
-			
+
 
 	 connect()
 	}//开始检索
@@ -277,7 +307,7 @@ window.onload = function(){
  	 		 	 	//var lines = line(x,y,x2,y2)
  	 		 	 	x3 = [x+x2]/2
  	 		 	 	x4 = x3
- 	 		 	 	y3 = y 
+ 	 		 	 	y3 = y
  	 		 	 	y4 = y2
  	 		 	 	noFill();
  	 		 	 	colorMode(HSB)
@@ -304,8 +334,6 @@ window.onload = function(){
 
  	 				}
  	 			}
- 	 			
+
  	 		}
  	 	}//绘线函数
-
-		

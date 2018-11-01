@@ -1,3 +1,4 @@
+// "out":"../css/main.css","compress":true
 @yel:#EDC329;
 
 body{
@@ -14,9 +15,26 @@ body{
 }
 
 button{
-	width: 50px;
+	width: 20px;
 	height: 20px;
-	border: 1px solid grey;
+	border: 1px solid white;
+	background-color: grey;
+	border-radius: 50px;
+	color: white;
+	margin-top: 10px;
+	&:active{
+		background-color: yellow;
+	}
+}
+
+.btn-pause{
+	background-color: red;
+}
+.btn-render{
+	background-color: blue;
+}
+.btn-auto{
+	background-color: green;
 }
 
 #giveBox{
@@ -26,20 +44,25 @@ button{
 
 #getChinese{
 	#open{
-
+		float: left;
+		clear: both;
 	}
 	ul{
+		text-decoration: none;
+		clear: both;
 		color:white;
-		scroll-behavior: smooth; 
-		overflow-y: scroll; 
+		float: left;
+		scroll-behavior: smooth;
+		overflow-y: scroll;
 		overflow-x: hidden;
 		list-style: none;
 		height: 200px;
 		margin: 0;
 		padding: 0;
-		width: 50%;
+		width: 20%;
 		border: 1px solid grey;
 		li{
+			text-decoration: none;
 			border: 1px solid grey;
 			padding: 10px;
 			margin: 2px 0px;
@@ -47,39 +70,59 @@ button{
 			float: left;
 			width: 100%;
 			clear: both;
-			
+
 			a{
 				.fH;
 				color:white;
+				text-decoration: none;
 			}
 			.poemText, .poemTrans{
 				display: inline-block;
 				vertical-align: top;
 				.fH;
 			}
-			.poemText{
-				width: 40%;
-			}
-			.poemTrans{
-				width: 50%;
-				margin-left: 30px;
-			}
+
 			.poemContent{
 				//border: 1px solid black;
-				
+
 			}
 		}
 	}
-	// #showContent{
-	// 	height: 300px;
-	// 	width: 200px;
-	// 	background-color: red;
-	// }
+
+	#showContent{
+		border: 1px solid grey;
+		margin:10px;
+		margin-top: 0;
+		font-size: 0.8em;
+		height: 200px;
+		width: 40%;
+		color: white;
+		float: left;
+		overflow-y: scroll;
+		vertical-align: top;
+		.poemContent{
+			margin: 20px;
+			float: left;
+			width: 100%;
+			height: 100%;
+			vertical-align: top;
+			.poemText{
+				width: 30%;
+					float:left;
+			}
+			.poemTrans{
+				width: 50%;
+				float:left;
+				margin-left: 20px;
+				font-size: 0.8em;
+			}
+		}
+	}
 }
 
 
 #tone{
-	
+
 	display: inline-block;
 	.tone, .symbol{
 		width: 20%;
@@ -90,7 +133,7 @@ button{
 	}
 	.tone1{
 		vertical-align: top;
-		
+
 
 	}
 	.tone4,.tone2{
