@@ -18,18 +18,23 @@ button {
 }
 #getChinese ul {
   color: white;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  overflow-x: hidden;
   list-style: none;
+  height: 200px;
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 50%;
+  border: 1px solid grey;
 }
 #getChinese ul li {
   border: 1px solid grey;
   padding: 10px;
-  margin: 3px;
+  margin: 2px 0px;
   vertical-align: top;
   float: left;
-  width: 49%;
+  width: 100%;
   clear: both;
 }
 #getChinese ul li a {
@@ -56,7 +61,7 @@ button {
   visibility: hidden;
 }
 #getChinese ul li .poemText {
-  width: 27%;
+  width: 40%;
 }
 #getChinese ul li .poemTrans {
   width: 50%;

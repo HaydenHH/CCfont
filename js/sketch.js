@@ -49,7 +49,7 @@ window.onload = function(){
 		function setup(){
 			ch = 1000
 			cw = 1000
-		  createCanvas(ch, cw);
+		  createCanvas(windowWidth*0.8,ch );
 		  btn = createButton('Pause');
 		  btn3 = createButton('Type&Draw');
 		  btn.mousePressed(noLoop)
@@ -70,13 +70,17 @@ window.onload = function(){
 
 		}
 
+		function windowResized() {
+		  resizeCanvas(windowWidth*0.8,ch);
+		}
+
 		function looop(){
 			loop()
 		}
 
 
 		function draw(){
-			
+			colorMode(HSB)
 		  	background(10)
 		  	begin()
 		}
@@ -182,7 +186,7 @@ window.onload = function(){
 							centreX = count*space-row*rowWord*space 
 							centreY = centreY - 200
 						}else if(tone == 'symbol'){
-							centreX = count*space-row*rowWord*space 
+							centreX = count*space-row*rowWord*space-space
 							centreY = centreY 
 						}
 						
@@ -194,7 +198,7 @@ window.onload = function(){
 								
 								
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
-								y = centreY + layoutRow*dotSpace  
+									y = centreY + layoutRow*dotSpace  
 									
 								coor.push({"x":x,"y":y,"t":t})
 							}else if(t == 1){
@@ -202,7 +206,7 @@ window.onload = function(){
 								layoutRow =  Math.floor(i/rowPoint)
 								
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace*1.5,
-								y = centreY + layoutRow*dotSpace  
+									y = centreY + layoutRow*dotSpace  
 									
 								coor.push({"x":x,"y":y,"t":t})
 							}else if(t == 2){
@@ -210,7 +214,7 @@ window.onload = function(){
 								layoutRow =  Math.floor(i/rowPoint)
 								
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
-								y = centreY - layoutRow*dotSpace  
+									y = centreY - layoutRow*dotSpace  
 									
 								coor.push({"x":x,"y":y,"t":t})
 								
@@ -219,7 +223,7 @@ window.onload = function(){
 								layoutRow =  Math.floor(i/rowPoint)
 								
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
-								y = centreY 
+									y = centreY 
 									
 								coor.push({"x":x,"y":y,"t":t})
 								
@@ -228,7 +232,7 @@ window.onload = function(){
 								layoutRow =  Math.floor(i/rowPoint)
 								
 								var x = centreX - [i-layoutRow*rowPoint]*dotSpace,
-								y = centreY + layoutRow*dotSpace  
+									y = centreY + layoutRow*dotSpace  
 									
 								coor.push({"x":x,"y":y,"t":t})
 								
@@ -237,7 +241,7 @@ window.onload = function(){
 								layoutRow =  Math.floor(i/rowPoint)
 								
 								var x = centreX - [i-layoutRow*rowPoint]*dotSpace,
-								y = centreY + layoutRow*dotSpace  
+									y = centreY + layoutRow*dotSpace  
 									
 								coor.push({"x":x,"y":y,"t":t})
 								

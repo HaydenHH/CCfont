@@ -13,17 +13,20 @@ window.onload = function(){
 	}
 
 
-	$('.poem').hide()
+	//$('.poem').hide()
 	$('.poemContent').hide()
-	$('.poemTrans').hide()
+	
 		
 	$('#open').click(function(){
 		$('.poem').toggle(200)	
 	});
 	
 	$('.poemShow').click(function(){
-		$(this).parent().find('.poemContent').toggle(200)
-		$(this).parent().find('.poemTrans').toggle(200)	
+		$(this).parent().siblings().find('.poemContent').hide(300)
+		$(this).parent().find('.poemContent').toggle(300)
+		$(this).animate({top:0}, 500)
+
+
 	});
 
 	
