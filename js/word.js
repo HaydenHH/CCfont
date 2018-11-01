@@ -1,77 +1,97 @@
 var wordBank = [
     {
         "word" : "",
-        "strokes": "com",
+        "strokes": "1",
         "pinyin":"1",
         "radicals":"symbol"
  
     },
     {
+        "word":"    ",
+        "strokes": "1",
+        "pinyin":"1",
+        "radicals":"symbol"
+    },
+    {
         "word" : ",",
-        "strokes": "com",
+        "strokes": "1",
         "pinyin":"1",
         "radicals":"symbol"
  
     },
     {
         "word" : "，",
-        "strokes": "com",
+        "strokes": "1",
         "pinyin":"1",
         "radicals":"symbol"
  
     },
     {
         "word" : "！",
-        "strokes": "excla",
+        "strokes": "1",
         "pinyin":"2",
         "radicals":"symbol"
  
     },
     {
         "word" : "!",
-        "strokes": "excla",
+        "strokes": "1",
         "pinyin":"2",
         "radicals":"symbol"
  
     },
     {
         "word" : "?",
-        "strokes": "ques",
+        "strokes": "1",
         "pinyin":"3",
         "radicals":"symbol"
  
     },
     {
         "word" : "？",
-        "strokes": "ques",
+        "strokes": "1",
         "pinyin":"3",
         "radicals":"symbol"
  
     },
     {
         "word" : ".",
-        "strokes": "dot",
+        "strokes": "1",
         "pinyin":"4",
         "radicals":"symbol"
  
     },
     {
         "word" : "。",
-        "strokes": "dot",
+        "strokes": "1",
         "pinyin":"4",
         "radicals":"symbol"
  
     },
     {
         "word" : "、",
-        "strokes": "dun",
+        "strokes": "1",
         "pinyin":"5",
         "radicals":"symbol"
  
     },
     {
         "word" : "：",
-        "strokes": "mao",
+        "strokes": "1",
+        "pinyin":"6",
+        "radicals":"symbol"
+ 
+    },
+    {
+        "word" : "；",
+        "strokes": "1",
+        "pinyin":"6",
+        "radicals":"symbol"
+ 
+    },
+     {
+        "word" : ";",
+        "strokes": "1",
         "pinyin":"6",
         "radicals":"symbol"
  
