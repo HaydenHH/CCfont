@@ -119,6 +119,17 @@ var poemBank = [
 						As quietly as I came here;\
 						Gently I flick my sleeves,\
 						Not even a wisp of cloud will I bring away."
+	},
+	{
+		"titles":"夜雨寄北",
+		"contents":"君问归期未有期\
+		巴山夜雨涨秋池\
+		何当共剪西窗烛\
+		却话巴山夜雨时",
+		"translate":"You ask me what time I'll return, but I cannot give a time,\
+The rain in the hills of Ba at night overflows the autumn pools.\
+When can we trim the candle together by the western window,\
+And talk together of the rain in the hills of Ba at night?"
 	}
 
 

@@ -1,30 +1,71 @@
-// "out":"../css/main.css","compress":true
+// out: ../css/main.css, sourcemap: true, compress: true
 @yel:#EDC329;
+@dark:#0c032f;
 
 body{
-	background-color: #202020;
+	z-index: 1;
+	padding-bottom: 200px;
+	//background-color: #202020;
 
 }
 
+body::-webkit-scrollbar, #giveBox ul::-webkit-scrollbar {
+    width: 0.1em;
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
+  background-color: red;
+  outline: 1px solid slategrey;
+}
+
+canvas{
+	margin: 80px;
+	margin-left: 40px;
+}
+
+.control{
+	background-color: #e0e1e6;
+	width: 50%;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	button{
+		width: 20px;
+		height: 20px;
+		border: 1px solid white;
+		background-color: grey;
+		border-radius: 50px;
+		display: inline-block;
+		color: white;
+		margin:10px 5px;
+		transition: .5s;
+		&:active{
+			background-color: yellow;
+		}
+		&:hover{
+			background-color: yellow;
+		}
+	}
+}
 
 .inp{
-	height: 50px;
-	width: 100px;
-	background-color: grey;
-	size: 20px;
+	height: 20px;
+	margin-left: 10px;
+	width: 250px;
+	background-color:black;
+	color:@yel;
+	size: 15px;
 }
 
-button{
-	width: 20px;
-	height: 20px;
-	border: 1px solid white;
-	background-color: grey;
-	border-radius: 50px;
-	color: white;
-	margin-top: 10px;
-	&:active{
-		background-color: yellow;
-	}
+
+
+.showValue{
+	display: inline-block;
 }
 
 .btn-pause{
@@ -36,44 +77,98 @@ button{
 .btn-auto{
 	background-color: green;
 }
-
-#giveBox{
-	margin-top: 80px;
-	margin-bottom: 100px;
+.btn-reC{
+	margin-left: 20px;
+}
+.btn-slider{
+	margin-left: 20px;
+	transform: translateY(3px);
 }
 
-#getChinese{
-	#open{
-		float: left;
-		clear: both;
+#showBtn1{
+	width: 50px;
+		height: 50px;
+		border: 1px solid grey;
+		float: right;
+	&:before{
+		display: block;
+		position: absolute;
+		right: 80px;
+		width: 180px;
+		top:25px;
+		content: 'Dont know how to type Chinese? Find some Chinese Poem'
 	}
+	&:hover{
+		background-color: @yel;
+	}
+}
+#giveBox{
+	z-index: 2;
+	background-color: @yel;
+	position: fixed;
+	top: 0px;
+	right: 0;
+	width: 50%;
+	height: 100%;
+
+	#showBtn2{
+		margin: 17px 7px;
+		width: 50px;
+		height: 50px;
+		border: 1px solid white;
+		background-color: @yel;
+		position: absolute;
+		right: 0;
+		top: 0;
+		&:hover{
+		background-color: white;
+	}
+	}
+}
+
+
+#open{
+		text-decoration: none;
+		float: right;
+		clear: both;
+		margin-bottom: 50px;
+		width: 100px;
+		height: 50px;
+		background-color: @yel;
+	}
+
+#getChinese{
+	
 	ul{
+		display: block;
 		text-decoration: none;
 		clear: both;
-		color:white;
-		float: left;
+		color:@dark;
 		scroll-behavior: smooth;
 		overflow-y: scroll;
 		overflow-x: hidden;
 		list-style: none;
-		height: 200px;
-		margin: 0;
-		padding: 0;
-		width: 20%;
-		border: 1px solid grey;
+		margin: 10px;
+		padding: 10px;
+		width: 85%;
+		border: 1px solid white;
 		li{
+			color:@dark;
 			text-decoration: none;
-			border: 1px solid grey;
+			border: 1px solid white;
 			padding: 10px;
 			margin: 2px 0px;
 			vertical-align: top;
 			float: left;
-			width: 100%;
+			width: 95%;
 			clear: both;
-
+			font-size: 0.7em;
+			&:hover{
+				background-color: white;
+			}
 			a{
 				.fH;
-				color:white;
+				color:@dark;
 				text-decoration: none;
 			}
 			.poemText, .poemTrans{
@@ -90,17 +185,30 @@ button{
 	}
 
 	#showContent{
-		border: 1px solid grey;
+		border: 1px solid white;
 		margin:10px;
 		margin-top: 0;
+		padding: 10px;
 		font-size: 0.8em;
-		height: 200px;
-		width: 40%;
+		padding-bottom: 50px;
+		width: 85%;
 		color: white;
-		float: left;
-		overflow-y: scroll;
+		overflow:hidden;
 		vertical-align: top;
+		&::-webkit-scrollbar, #giveBox ul::-webkit-scrollbar {
+			    width: 0.1em;
+			}
+
+			&::-webkit-scrollbar-track {
+			    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			}
+
+			&::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
+			  background-color: red;
+			  outline: 1px solid slategrey;
+			}
 		.poemContent{
+
 			margin: 20px;
 			float: left;
 			width: 100%;
@@ -108,18 +216,26 @@ button{
 			vertical-align: top;
 			.poemText{
 				width: 30%;
-					float:left;
+				float:left;
+				color:@dark;
+				font-size: 1.2em;
 			}
 			.poemTrans{
 				width: 50%;
 				float:left;
 				margin-left: 20px;
 				font-size: 0.8em;
+				color:@dark;
 			}
 		}
 	}
 }
 
+.printWord{
+	width: 70%;
+	color:grey;
+	font-size:.8em;
+}
 
 #tone{
 
