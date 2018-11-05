@@ -1,13 +1,13 @@
 var wordBank = [
     {
-        "word" : "",
+        "word" : " ",
         "strokes": "1",
-        "pinyin":"1",
+        "pinyin":"4",
         "radicals":"symbol"
  
     },
     {
-        "word":"    ",
+        "word":"；",
         "strokes": "1",
         "pinyin":"1",
         "radicals":"symbol"

@@ -19,12 +19,17 @@ window.onload = function(){
 	}
 
 
-	//$('.poem').hide()
+	$('#giveBox').hide()
 	//$('.poemContent').hide()
 
 
-	$('#open').click(function(){
-		$('.poem').toggle(200)
+	$('#showBtn1').click(function(){
+		$('#giveBox').stop().fadeToggle(200)
+
+	});
+
+	$('#showBtn2').click(function(){
+		$('#giveBox').stop().fadeToggle(200)
 	});
 
 

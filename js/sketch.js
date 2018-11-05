@@ -26,12 +26,12 @@ window.onload = function(){
 		pointWord = new Array,
 		allPoints = new Array()
 		var myObj = new Array()
-		var lines,pointS,pointE,dots,xS,yS,xE,yE
+		var lines,pointS,pointE,dots,xS,yS,xE,yE,x3,y3,x4,y4
 		var pinyinStr
 		var giveWord
 		var dots;
 		var obj,tonebase;
-		var inp,btn,btn2,btn3,btn4
+		var inp,btn,btn2,btn3,btn4,p1,p2,div
 		var row,space,rowC
 		var ch,cw,countofword
 
@@ -50,13 +50,21 @@ window.onload = function(){
 
 
 		function setup(){
-			slider = createSlider(1000, 3000, 10);
-		  slider.position(700, 40).addClass('Noprint')
+		slider = createSlider(1000, 3000, 10);
+		  slider.addClass('Noprint btn-slider')
 		  slider.style('width', '100px');
-			ch = 1000
+		  p1 = createP('1')
+		  p1.addClass('Noprint showValue')
+		  p2 = createP('2')
+		  p2.addClass('printWord')
 
-			cw = 1000
-		  createCanvas(windowWidth*0.8,ch );
+
+
+			ch = 1000
+			cw = windowWidth*0.8
+		  createCanvas(cw,ch);
+		  p2.position(50,ch+90)
+
 		  btn = createButton('P');
 			 btn2 = createButton('A');
 		  btn3 = createButton('R');
@@ -66,14 +74,17 @@ window.onload = function(){
 		 btn4.mousePressed(reCanvas)
 		  btn2.mousePressed(begin)
 		  //btn2.mousePressed(begin)
-		  btn.position(10,20).addClass('Noprint btn-pause')
-		  btn3.position(40,20).addClass('Noprint btn-render')
-		  btn2.position(70,20).addClass('Noprint btn-auto')
-			btn4.position(650,30).addClass('Noprint')
+		  btn.addClass('Noprint btn-pause')
+		  btn3.addClass('Noprint btn-render')
+		  btn2.addClass('Noprint btn-auto')
+			btn4.addClass('Noprint btn-reC')
 		  inp = createInput('');
 		  inp.addClass('inp');
-		  inp.position(100,10).addClass('Noprint')
+		  inp.attribute('placeholder','Type Chinese to start')
+		  inp.addClass('Noprint')
 		  inp.style('width', '20%')
+		  div = createDiv()
+		  div.child(inp).child(btn).child(btn2).child(btn3).child(slider).child(btn4).child(p1).addClass('control').addClass('Noprint')
 		  //inp.input(begin);
 		  //button.mouseClicked(redraw)
 
@@ -81,7 +92,9 @@ window.onload = function(){
 		}
 
 		function windowResized() {
-		  resizeCanvas(windowWidth*0.8,ch);
+			cw = windowWidth*0.8	
+		  resizeCanvas(cw,ch);
+
 		}
 
 		function looop(){
@@ -89,17 +102,23 @@ window.onload = function(){
 		}
 
 		function reCanvas(){
-			var v = slider.value()
-			 resizeCanvas(windowWidth*0.8, v)
+			ch = slider.value()
+			resizeCanvas(windowWidth*0.8,ch)
+			p2.position(50,ch+90)
 		}
 
 
 		function draw(){
+			p1.html('Canvas height:' + slider.value())
+			p2.html(inp.value())
 			colorMode(HSB)
-		  	background(10)
+		  	background(20)
 				//resizeCanvas(windowWidth*0.8,ch)
 		  	begin()
-		}
+		  	
+		  }
+
+		
 
 
 		function begin(){
@@ -114,6 +133,9 @@ window.onload = function(){
 
 			var giveWord =  inp.value().replace(/\s+/g,"，");
 
+
+			
+			
 
 
 			// function reCanvas(y){
@@ -190,41 +212,41 @@ window.onload = function(){
 						coor.length = 0
 
 
-						space = 170 //每个字的间距
+						space = cw / 10 //每个字的间距
 						dotSpace = 30 //每个点的间距
 						wordHeight = 5 //字的高度系数
 						lineHeight = 100 //行距
 
 						rowWord = 8  //每行的字数
 						row = Math.floor(allStroke.length/rowWord)
-						centreX = count*space-row*rowWord*space + 50
-						centreY = row*lineHeight + 400
+						var centreX = count*space-row*rowWord*space 
+						var centreY = row*lineHeight + 300
 
 						if(tone == 0){
-							centreX = centreX
+							centreX = centreX + space
 							centreY = centreY
 						}else if(tone == 1){
-							centreX = centreX
+							centreX = centreX+ space
 							centreY = centreY
 						}else if(tone == 2){
-							centreX = centreX
-							centreY = centreY + 200
+							centreX = centreX+ space
+							centreY = centreY + lineHeight*1.5
 						}else if(tone == 3){
-							centreX = centreX
-							centreY = centreY - 100
+							centreX = centreX+ space
+							centreY = centreY - lineHeight/1.5
 						}else if(tone == 4){
-							centreX = centreX
-							centreY = centreY - 200
+							centreX = centreX+ space
+							centreY = centreY - lineHeight*1.5
 						}else if(tone == 'symbol'){
-							centreX = count*space-row*rowWord*space-space
-							centreY = centreY
+							centreX = count*space-row*rowWord*space+space*1.5
+							centreY = centreY + lineHeight*1.5
 						}
 
 
 						for(var centreX,centreY,t = tone, i = 0, l = strokes; i < l;i++){
 							if(t == 0){
-								rowPoint = 1 //每行点的个数
-								layoutRow =  Math.floor(i/rowPoint) + 1
+								rowPoint = 8 //每行点的个数
+								layoutRow =  Math.floor(i/rowPoint) 
 
 
 								var x = centreX + [i-layoutRow*rowPoint]*dotSpace,
@@ -303,34 +325,77 @@ window.onload = function(){
 
 	function connect(){
 
- 	 		function makeline(x,y,x2,y2){
+ 	 		function makeline(x,y,x2,y2,i,t){
  	 		 	 	//var lines = line(x,y,x2,y2)
- 	 		 	 	x3 = [x+x2]/2
- 	 		 	 	x4 = x3
- 	 		 	 	y3 = y
- 	 		 	 	y4 = y2
+ 	 		 	 	var x3,x4,y3,y4
+ 	 		 	 	var x3 = [x+x2]/2
+ 	 		 	 		var x4 = x3
+ 	 		 	 		var y3 = y
+ 	 		 	 		var y4 = y2
+ 	 		 	 	// if(t == '0'){
+	 	 		 	 // 	var x3 = [x+x2]/2
+ 	 		 	 	// 	var x4 = x3
+ 	 		 	 	// 	var y3 = y
+ 	 		 	 	// 	var y4 = y2
+ 	 		 	 	// }else if(t == '1'){
+ 	 		 	 	// 	var x3 = [x+x2]/2
+ 	 		 	 	// 	var x4 = x3
+ 	 		 	 	// 	var y3 = y
+ 	 		 	 	// 	var y4 = y2
+ 	 		 	 	// }else if(t == '2'){
+ 	 		 	 	// 	var x3 = [x+x2]/2
+ 	 		 	 	// 	var x4 = x3
+ 	 		 	 	// 	var y3 = 10 + y
+ 	 		 	 	// 	var y4 = y - 10
+ 	 		 	 	// }else if(t == '3'){
+ 	 		 	 	// 	var x3 = [x+x2]/2
+	 	 		 	 // 	var x4 = x3
+	 	 		 	 // 	var y3 = y2
+	 	 		 	 // 	var y4 = y
+ 	 		 	 	// }else if(t == '4'){
+ 	 		 	 	// 	var x3 = [x+x2]/2
+ 	 		 	 	// 	var x4 = x3
+ 	 		 	 	// 	var y3 = y
+ 	 		 	 	// 	var y4 = y2
+ 	 		 	 	// }else if(t == 's'){
+ 	 		 	 	// 	var x3 = [x+x2]/2
+ 	 		 	 	// 	var x4 = x3
+ 	 		 	 	// 	var y3 = y
+ 	 		 	 	// 	var y4 = y2
+ 	 		 	 	// }
+ 	 		 	 	
  	 		 	 	noFill();
  	 		 	 	colorMode(HSB)
- 	 		 	 	colorX = abs(sin(x))
- 	 		 	 	stroke(x/20,100,120)
- 	 		 	 	bezier(x, y, x3, y3, x4, y4, x2, y2)
+ 	 		 	 	colorX = abs(sin(i))
+ 	 		 	 	sw = Math.sqrt(Math.pow([x2-x],2)+Math.pow([y2-y],2))
+ 	 		 	 	
+ 	 		 	 	//strokeWeight(sw)
+ 	 		 	 	line = bezier(x, y, x3, y3, x4, y4, x2, y2)
+ 	 		 	 	line.stroke(i,x/5,120)
 
  	 		}
  	 		for(var index = 1, allBox = pointWord.length; index<allBox; index++){
  	 			pointS = pointWord.slice(index-1,index)
+
  	 			pointS = pointS[0]
+
  	 			pointS = pointS[0]
+
  	 			pointE = pointWord.slice(index,index+1)
  	 			pointE = pointE[0]
  	 			pointE = pointE[0]
+
  	 			for(var i = 0, dots = pointS.length; i<dots; i++){
  	 				xS = pointS[i].x
  	 				yS = pointS[i].y
+ 	 				
  	 				for(var ii = 0, Edots = pointE.length; ii<Edots; ii++){
+ 	 					getToneA = pointE[ii].t
+ 	 					getTone = getToneA[0] 
  	 					xE = pointE[ii].x
  	 					yE = pointE[ii].y
 
- 	 					makeline(xS,yS,xE,yE)
+ 	 					makeline(xS,yS,xE,yE,index,getTone)
 
  	 				}
  	 			}
