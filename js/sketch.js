@@ -60,10 +60,10 @@ window.onload = function(){
 
 
 
-			ch = 1000
-			cw = windowWidth*0.8
+			ch = windowHeight
+			cw = windowWidth
 		  createCanvas(cw,ch);
-		  p2.position(50,ch+90)
+		  p2.position(50,ch+10)
 
 		  btn = createButton('P');
 			 btn2 = createButton('A');
@@ -84,7 +84,7 @@ window.onload = function(){
 		  inp.addClass('Noprint')
 		  inp.style('width', '20%')
 		  div = createDiv()
-		  div.child(inp).child(btn).child(btn2).child(btn3).child(slider).child(btn4).child(p1).addClass('control').addClass('Noprint')
+		  div.child(btn).child(btn2).child(btn3).child(slider).child(btn4).child(p1).addClass('control').addClass('Noprint')
 		  //inp.input(begin);
 		  //button.mouseClicked(redraw)
 
@@ -92,7 +92,7 @@ window.onload = function(){
 		}
 
 		function windowResized() {
-			cw = windowWidth*0.8	
+			cw = windowWidth
 		  resizeCanvas(cw,ch);
 
 		}
@@ -103,7 +103,7 @@ window.onload = function(){
 
 		function reCanvas(){
 			ch = slider.value()
-			resizeCanvas(windowWidth*0.8,ch)
+			resizeCanvas(windowWidth,ch)
 			p2.position(50,ch+90)
 		}
 
